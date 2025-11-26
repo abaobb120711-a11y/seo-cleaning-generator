@@ -39,9 +39,9 @@
 
     // --- 常量定义 ---
     const BASE_WASTE_WORDS = [
-      "coloring page", "coloring pages", "color page", "color pages", 
+      "cute", "kawaii", "free", "character", "characters",
       "printable coloring page", "printable coloring pages", "free coloring page", 
-      "free coloring pages", "coloring book", "coloring book page", "coloring sheet", 
+      "free coloring pages", "coloring book page", "coloring sheet", 
       "coloring sheets", "printable sheet", "printable pdf", "printable design", 
       "art coloring page", "outline coloring page", "simple coloring page", 
       "easy coloring page", "hard coloring page", "detailed coloring page", 
@@ -49,8 +49,8 @@
       "template", "drawing template", "for kids", "for adults", "for teens", 
       "for toddlers", "for girls", "for boys", "for beginners", "free download", 
       "download printable", "PDF printable", "black and white", "grayscale", 
-      "simple colors", "colorable", "color-ready", "without colors", "page", 
-      "pages", "sheet", "pdf", "printable", "digital download", "instant download", 
+      "simple colors", "colorable", "color-ready", "without colors", 
+      "pdf", "printable", "digital download", "instant download", 
       "download pdf", "clipart", "svg", "8.5x11", "A4 size", "portrait", "landscape", 
       "high resolution", "HD", "standing", "sitting", "smiling", "cute pose", 
       "fun pose", "happy pose", "ready to color", "kawaii style", "aesthetic", 
@@ -66,7 +66,7 @@
       输出要求：严格返回有效的JSON格式，结构如下：{ "expanded_waste_words": ["词汇1", "词汇2", ...] }
     `;
 
-    // --- 图标组件 (简单的 SVG 封装) ---
+    // --- 图标组件 ---
     const Icons = {
       Shield: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
       Key: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>,
@@ -76,9 +76,12 @@
       Download: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
       Trash: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>,
       Check: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 11.08 22 2 7 21 12 3 12"/></svg>,
-      Settings: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
       Search: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>,
-      Loader: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      Loader: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>,
+      Plus: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+      X: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+      Tag: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>,
+      Sparkles: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
     };
 
     // --- 工具函数 ---
@@ -101,7 +104,6 @@
       if (matrix.length === 0) return { keywordIdx: 0, volumeIdx: 1 };
       let keywordIdx = -1, volumeIdx = -1;
       
-      // 核心词匹配
       if (seedKeyword && seedKeyword.trim().length > 0) {
         const lowerSeed = seedKeyword.trim().toLowerCase();
         const colScores = new Array(matrix[0].length).fill(0);
@@ -119,21 +121,18 @@
         const headers = matrix[0].map(h => h.toLowerCase());
         headers.forEach((h, idx) => { if (h.includes('keyword') || h.includes('term') || h.includes('相关词汇')) keywordIdx = idx; });
       }
-      if (keywordIdx === -1) keywordIdx = 0; // 默认第一列
+      if (keywordIdx === -1) keywordIdx = 0;
 
       const headers = matrix[0].map(h => h.toLowerCase());
       headers.forEach((h, idx) => { if (h.includes('volume') || h.includes('traffic') || h.includes('流量')) volumeIdx = idx; });
       
-      if (volumeIdx === -1) {
-        volumeIdx = matrix[0].length > 2 ? 2 : 1; // 默认第三列
-      }
+      if (volumeIdx === -1) volumeIdx = matrix[0].length > 2 ? 2 : 1;
       return { keywordIdx, volumeIdx };
     };
 
     const extractDataFromMatrix = (matrix, keywordIdx, volumeIdx) => {
       const result = [];
       let startRow = 0;
-      // 简单的表头跳过逻辑
       if (matrix.length > 0 && volumeIdx !== -1 && matrix[0][volumeIdx]) {
          if (isNaN(parseFloat(matrix[0][volumeIdx].replace(/,/g, '')))) startRow = 1;
       }
@@ -146,8 +145,8 @@
       return result;
     };
 
-    const filterKeywords = (data, aiWasteWords) => {
-      const allWasteWords = [...BASE_WASTE_WORDS, ...aiWasteWords];
+    const filterKeywords = (data, aiWasteWords, customWasteWords) => {
+      const allWasteWords = [...BASE_WASTE_WORDS, ...(customWasteWords||[]), ...aiWasteWords];
       const wasteSet = allWasteWords.map(w => w.toLowerCase());
       const clean = [];
       let removed = 0;
@@ -166,16 +165,9 @@
     const ApiKeyInput = ({ currentKey, onSave }) => {
       const [val, setVal] = useState(currentKey);
       return (
-        <div className="w-full max-w-2xl mx-auto mb-8 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600"><Icons.Key/></div>
-            <h2 className="text-lg font-semibold text-slate-800">API 配置</h2>
-          </div>
-          <p className="text-sm text-slate-500 mb-4">请输入您的 APIMart Key。如果留空则仅使用基础废词库，不进行AI扩充。</p>
-          <div className="flex gap-2">
-            <input type="password" value={val} onChange={e => setVal(e.target.value)} placeholder="API Key (可选)" className="flex-1 px-4 py-2 border rounded-lg" />
-            <button onClick={() => onSave(val)} className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium">确认</button>
-          </div>
+        <div className="flex items-center gap-2">
+           <input type="password" value={val} onChange={e => setVal(e.target.value)} placeholder="API Key" className="px-3 py-1 border rounded text-xs w-32 md:w-48" />
+           <button onClick={() => onSave(val)} className="text-xs bg-indigo-600 text-white px-2 py-1 rounded">保存</button>
         </div>
       );
     };
@@ -211,14 +203,15 @@
       );
     };
 
-    const ResultsView = ({ cleanData, aiWasteWords, removedCount, onBack }) => {
+    const ResultsView = ({ cleanData, aiWasteWords, customWasteWords, removedCount, onBack }) => {
       const [page, setPage] = useState(1);
       const PER_PAGE = 100;
       const totalPages = Math.ceil(cleanData.length / PER_PAGE);
       const currentData = cleanData.slice((page-1)*PER_PAGE, page*PER_PAGE);
 
       const downloadExcel = () => {
-        const ws = XLSX.utils.json_to_sheet(cleanData.map(r => ({ "相关词汇": r.keyword, "流量": r.volume })));
+        const sheetData = cleanData.map(r => ({ "相关词汇": r.keyword, "流量": Number(r.volume.replace(/,/g,'')) || r.volume }));
+        const ws = XLSX.utils.json_to_sheet(sheetData);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Cleaned");
         XLSX.writeFile(wb, "cleaned_data.xlsx");
@@ -274,7 +267,7 @@
 
     // --- 主应用 ---
     const App = () => {
-      const [step, setStep] = useState(0); // 0:Setup, 1:Upload, 2:Results
+      const [step, setStep] = useState(1); // 1:Upload, 2:Results
       const [apiKey, setApiKey] = useState("");
       const [rawMatrix, setRawMatrix] = useState([]);
       const [kIdx, setKIdx] = useState(0);
@@ -283,6 +276,15 @@
       const [isProcessing, setIsProcessing] = useState(false);
       const [seedKeyword, setSeed] = useState("");
       const [useAI, setUseAI] = useState(true);
+      
+      const [customWasteWords, setCustomWasteWords] = useState([]);
+      const [newWasteWord, setNewWasteWord] = useState("");
+
+      useEffect(() => {
+        const saved = localStorage.getItem('custom_waste_words');
+        if(saved) try { setCustomWasteWords(JSON.parse(saved)); } catch(e){}
+      }, []);
+      useEffect(() => { localStorage.setItem('custom_waste_words', JSON.stringify(customWasteWords)); }, [customWasteWords]);
 
       const processed = useMemo(() => extractDataFromMatrix(rawMatrix, kIdx, vIdx), [rawMatrix, kIdx, vIdx]);
 
@@ -293,6 +295,13 @@
         setRawMatrix(mat);
         setKIdx(def.keywordIdx);
         setVIdx(def.volumeIdx);
+      };
+
+      const addCustom = () => {
+        if(!newWasteWord.trim()) return;
+        const w = newWasteWord.trim().toLowerCase();
+        if(!customWasteWords.includes(w)) setCustomWasteWords([...customWasteWords, w]);
+        setNewWasteWord("");
       };
 
       const run = async () => {
@@ -313,27 +322,25 @@
              if(jsonStr) aiWords = JSON.parse(jsonStr).expanded_waste_words || [];
            } catch(e) { console.warn("AI Fail", e); }
         }
-        const { clean, removed } = filterKeywords(processed, aiWords);
-        setResult({ cleanData: clean, removedCount: removed, aiWasteWords: aiWords });
+        const { clean, removed } = filterKeywords(processed, aiWords, customWasteWords);
+        setResult({ cleanData: clean, removedCount: removed, aiWasteWords: aiWords, customWasteWords });
         setStep(2);
         setIsProcessing(false);
       };
 
       return (
         <div className="max-w-6xl mx-auto px-4 py-8">
-          <header className="mb-8 flex items-center gap-2">
-             <div className="bg-indigo-600 p-2 rounded text-white"><Icons.Shield/></div>
-             <h1 className="text-xl font-bold">SEO 清洗工具 <span className="text-xs bg-slate-200 px-2 py-1 rounded text-slate-600">本地单文件版</span></h1>
+          <header className="mb-8 flex items-center justify-between">
+             <div className="flex items-center gap-2">
+                <div className="bg-indigo-600 p-2 rounded text-white"><Icons.Shield/></div>
+                <h1 className="text-xl font-bold">SEO 清洗工具 <span className="text-xs bg-slate-200 px-2 py-1 rounded text-slate-600">v3.5</span></h1>
+             </div>
+             <ApiKeyInput currentKey={apiKey} onSave={setApiKey} />
           </header>
 
-          {step === 0 && <ApiKeyInput currentKey={apiKey} onSave={(k) => { setApiKey(k); setStep(1); }} />}
-          
           {step === 1 && (
             <div className="space-y-6 animate-fade-in">
-               <div className="flex justify-between">
-                  <h2 className="text-2xl font-bold">导入数据</h2>
-                  <button onClick={() => setStep(0)} className="text-sm text-slate-500 flex gap-1 items-center"><Icons.Settings/> 设置 API</button>
-               </div>
+               <h2 className="text-2xl font-bold">导入数据</h2>
                
                {rawMatrix.length === 0 ? (
                  <>
@@ -358,6 +365,19 @@
                              {rawMatrix[0].map((_,i) => <option key={i} value={i}>列 {i+1}: {rawMatrix[0][i]?.substring(0,20)}</option>)}
                           </select>
                        </div>
+                    </div>
+
+                    <div className="bg-yellow-50 border border-yellow-200 rounded p-4 mb-4">
+                        <div className="flex items-center gap-2 mb-2 text-yellow-800 text-sm font-bold"><Icons.Tag/> 自定义废词 (自动保存)</div>
+                        <div className="flex gap-2 mb-2">
+                            <input value={newWasteWord} onChange={e=>setNewWasteWord(e.target.value)} onKeyDown={e=>e.key==='Enter'&&addCustom()} className="flex-1 px-2 py-1 border rounded text-sm" placeholder="输入废词回车..." />
+                            <button onClick={addCustom} className="bg-yellow-600 text-white px-3 py-1 rounded text-sm"><Icons.Plus/></button>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                            {customWasteWords.map((w,i) => (
+                                <span key={i} className="bg-white border text-xs px-2 py-1 rounded flex items-center gap-1">{w} <button onClick={()=>setCustomWasteWords(customWasteWords.filter(x=>x!==w))} className="text-red-500"><Icons.X/></button></span>
+                            ))}
+                        </div>
                     </div>
                     
                     <div className="flex justify-between items-center mb-2">
@@ -395,4 +415,7 @@
     root.render(<App />);
   </script>
 </body>
+</html>
+</body>
+
 </html>
